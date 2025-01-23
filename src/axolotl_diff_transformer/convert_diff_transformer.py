@@ -9,17 +9,14 @@ from typing import Union
 import fire
 import torch
 import yaml
+from axolotl.cli import load_cfg, print_axolotl_text_art
+from axolotl.common.cli import ConvertDiffTransformerCliArgs, load_model_and_tokenizer
+from axolotl.utils.yaml import dump_yaml_preserved_order
 from colorama import Fore
 from dotenv import load_dotenv
 from transformers import HfArgumentParser
 
-from axolotl.cli import load_cfg, print_axolotl_text_art
-from axolotl.common.cli import ConvertDiffTransformerCliArgs, load_model_and_tokenizer
-from axolotl.integrations.diff_transformer.modeling_diff_attn import (
-    LlamaDifferentialConfig,
-    LlamaDifferentialForCausalLM,
-)
-from axolotl.utils.yaml import dump_yaml_preserved_order
+from .modeling_diff_attn import LlamaDifferentialConfig, LlamaDifferentialForCausalLM
 
 LOG = logging.getLogger(__name__)
 
