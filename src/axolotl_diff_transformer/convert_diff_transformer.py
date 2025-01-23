@@ -16,7 +16,10 @@ from colorama import Fore
 from dotenv import load_dotenv
 from transformers import HfArgumentParser
 
-from .modeling_diff_attn import LlamaDifferentialConfig, LlamaDifferentialForCausalLM
+from .modeling.modeling_diff_attn import (
+    LlamaDifferentialConfig,
+    LlamaDifferentialForCausalLM,
+)
 
 LOG = logging.getLogger(__name__)
 
