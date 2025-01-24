@@ -1,3 +1,3 @@
-git+https://github.com/axolotl-ai-cloud/axolotl.git
+git+https://github.com/axolotl-ai-cloud/axolotl.git@diff-transformer
 torch
 transformers
