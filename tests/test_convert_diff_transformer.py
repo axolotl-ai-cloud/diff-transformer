@@ -4,15 +4,14 @@
 
 from pathlib import Path
 from typing import Optional
-from unittest.mock import patch
 
 import pytest
 import yaml
 from axolotl.cli.config import load_cfg
 from axolotl.cli.main import cli
 
-from axolotl_diff_transformer.plugin.cli import ConvertDiffTransformerCliArgs
 from axolotl_diff_transformer.convert_diff_transformer import convert_diff_transformer
+from axolotl_diff_transformer.plugin.cli import ConvertDiffTransformerCliArgs
 
 
 def test_cli_validation(cli_runner):

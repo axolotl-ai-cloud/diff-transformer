@@ -121,9 +121,7 @@ def convert_diff_transformer(cfg, cli_args, config_path):
 
         modified_cfg["base_model"] = cfg.output_dir
         modified_cfg["diff_attention"] = True
-        plugin_class = (
-            "axolotl_diff_transformer.plugin.DifferentialTransformerPlugin"
-        )
+        plugin_class = "axolotl_diff_transformer.plugin.DifferentialTransformerPlugin"
         if "plugins" in modified_cfg:
             modified_cfg["plugins"].append(plugin_class)
         else:
