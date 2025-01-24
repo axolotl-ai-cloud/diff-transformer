@@ -470,8 +470,8 @@ class LlamaDifferentialAttention(LlamaDifferentialAttentionBase):
         if output_attentions:
             attn_weights = attn1 - lambda_full * attn2
             attn_weights = attn_weights.view(bsz, self.heads_per_component, q_len, -1)
-            return attn, attn_weights, past_key_value
-        return attn, None, past_key_value
+            return attn, attn_weights
+        return attn, None
 
 
 class LlamaDifferentialSdpaAttention(LlamaDifferentialAttentionBase):
@@ -571,7 +571,7 @@ class LlamaDifferentialSdpaAttention(LlamaDifferentialAttentionBase):
         self.attn2 = attn2
         self.lambda_full = lambda_full
 
-        return attn, None, past_key_value
+        return attn, None
 
 
 class LlamaDifferentialFlashAttention2(LlamaDifferentialAttentionBase):
@@ -693,4 +693,4 @@ class LlamaDifferentialFlashAttention2(LlamaDifferentialAttentionBase):
         self.attn2 = attn2
         self.lambda_full = lambda_full
 
-        return attn, None, past_key_value
+        return attn, None

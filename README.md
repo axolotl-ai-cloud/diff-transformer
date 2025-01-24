@@ -29,7 +29,7 @@ model specified in axolotl config to
 
 ```yaml
 plugins:
-  - axolotl.integrations.diff_transformer.DifferentialTransformerPlugin
+  - axolotl_diff_transformer.plugin.DifferentialTransformerPlugin
 
 diff_attention: true
 ```
@@ -38,9 +38,12 @@ Additional, optional arguments include:
 
 ```yaml
 # How often to log diffential attention-related metrics to wandb
+# If not set, these metrics won't be logged
+# Requires wandb logging to be enabled (see `wandb_project`, etc. yaml config options)
 diff_attn_log_every: 100
 
-# How many differential attention layers to monitor (strided from 0..k..num_layers)
+# How many differential attention layers to monitor (strided from `0..k..num_layers`)
+# Depends on `diff_attn_log_every` being set
 diff_attn_num_monitor_layers: 3
 
 # How many steps to "warmup" the mixing parameter for the negative component of differential attention
