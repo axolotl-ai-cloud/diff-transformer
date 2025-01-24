@@ -33,6 +33,7 @@ jobs:
         pip install pytest
         pip install torch==${{ matrix.pytorch_version }}
         pip install -r requirements.txt
+        pip install -e .
 
     - name: Run tests
       run: |
