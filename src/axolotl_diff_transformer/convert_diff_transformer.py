@@ -9,14 +9,19 @@ from typing import Union
 import fire
 import torch
 import yaml
-from axolotl.cli import load_cfg, print_axolotl_text_art
-from axolotl.common.cli import ConvertDiffTransformerCliArgs, load_model_and_tokenizer
+from axolotl.cli.art import print_axolotl_text_art
+from axolotl.cli.config import load_cfg
+from axolotl.cli.utils import load_model_and_tokenizer
 from axolotl.utils.yaml import dump_yaml_preserved_order
 from colorama import Fore
 from dotenv import load_dotenv
 from transformers import HfArgumentParser
 
-from .modeling_diff_attn import LlamaDifferentialConfig, LlamaDifferentialForCausalLM
+from .modeling.modeling_diff_attn import (
+    LlamaDifferentialConfig,
+    LlamaDifferentialForCausalLM,
+)
+from .plugin.cli import ConvertDiffTransformerCliArgs
 
 LOG = logging.getLogger(__name__)
 
@@ -59,7 +64,7 @@ def convert_diff_transformer(cfg, cli_args, config_path):
     # Load model and tokenizer
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        model, tokenizer = load_model_and_tokenizer(cfg=cfg, cli_args=cli_args)
+        model, tokenizer = load_model_and_tokenizer(cfg=cfg)
         model.to(cfg.device, dtype=cfg.torch_dtype)
 
     # Log original model info
@@ -117,7 +122,7 @@ def convert_diff_transformer(cfg, cli_args, config_path):
         modified_cfg["base_model"] = cfg.output_dir
         modified_cfg["diff_attention"] = True
         plugin_class = (
-            "axolotl.integrations.diff_transformer.DifferentialTransformerPlugin"
+            "axolotl_diff_transformer.plugin.DifferentialTransformerPlugin"
         )
         if "plugins" in modified_cfg:
             modified_cfg["plugins"].append(plugin_class)
