@@ -4,9 +4,9 @@
 from pathlib import Path
 
 import yaml
+from axolotl.cli.args import EvaluateCliArgs
 from axolotl.cli.config import load_cfg
 from axolotl.cli.evaluate import do_evaluate
-from axolotl.cli.args import EvaluateCliArgs
 from pytest import approx
 
 from axolotl_diff_transformer.convert_diff_transformer import convert_diff_transformer

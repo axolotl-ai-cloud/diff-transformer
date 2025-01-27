@@ -1,3 +1,5 @@
+"""Module for CLI arguments for convert-diff-transformer command."""
+
 from dataclasses import dataclass, field
 
 
