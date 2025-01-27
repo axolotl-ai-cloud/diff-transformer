@@ -95,7 +95,7 @@ jobs:
 
       - name: Run tests job on Modal
         run: |
-          modal run cicd.tests
+          modal run cicd.cicd_tests
 
   docker-e2e-tests:
     if: github.repository_owner == 'axolotl-ai-cloud'
@@ -146,4 +146,4 @@ jobs:
 
       - name: Run tests job on Modal
         run: |
-          modal run cicd.tests
+          modal run cicd.cicd_tests
