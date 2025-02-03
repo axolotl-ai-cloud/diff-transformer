@@ -66,12 +66,6 @@ Additional command-line flags include:
 # Also good for debugging output-preserving conversion of models
 --sublayer-norm
 
-# If provided, the given model's self attention heads will be split into one half
-# positive heads and one half negative. If not, the number of heads will be doubled,
-# and the second half will be used for the negative component of attention
-# Note: This cannot be passed when the given model has an odd number of attention heads
---split-heads
-
 # Whether to copy the positive component attention weights to the negative component
 # This results in the converted model computing approximately the same function as the
 # original

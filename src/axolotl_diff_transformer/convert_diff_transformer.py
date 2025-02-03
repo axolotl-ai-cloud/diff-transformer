@@ -16,12 +16,10 @@ from axolotl.utils.yaml import dump_yaml_preserved_order
 from colorama import Fore
 from dotenv import load_dotenv
 from transformers import HfArgumentParser
+from transformers.models.diffllama.modeling_diffllama import DiffLlamaConfig
 
-from .modeling.modeling_diff_attn import (
-    LlamaDifferentialConfig,
-    LlamaDifferentialForCausalLM,
-)
 from .plugin.cli import ConvertDiffTransformerCliArgs
+from .plugin.convert import convert_to_diffllama
 
 LOG = logging.getLogger(__name__)
 
@@ -53,9 +51,6 @@ def test_inference(model, tokenizer, prompt="The quick brown fox"):
 
 def convert_diff_transformer(cfg, cli_args, config_path):
     assert not (
-        cli_args.split_heads and cli_args.zero_init
-    ), "Both `split_heads` and `zero_init` cannot be `True`"
-    assert not (
         cli_args.zero_init and cli_args.mirror_weights
     ), "Both `zero_init` and `mirror_weights` cannot be `True`"
 
@@ -85,14 +80,14 @@ def convert_diff_transformer(cfg, cli_args, config_path):
         # Convert attention
         LOG.info("Converting to differential attention...")
 
-        config = LlamaDifferentialConfig(
-            **model.config.__dict__,
+        config = DiffLlamaConfig(**model.config.__dict__)
+        model = convert_to_diffllama(
+            model,
+            config,
             zero_init=cli_args.zero_init,
             sublayer_norm=cli_args.sublayer_norm,
-            split_heads=cli_args.split_heads,
             mirror_weights=cli_args.mirror_weights,
         )
-        model = LlamaDifferentialForCausalLM.from_llama(model, config)
         model.to(cfg.device, dtype=cfg.torch_dtype)
     except Exception as exc:
         LOG.error(Fore.RED + "Conversion failed: %s" + Fore.RESET, str(exc))
